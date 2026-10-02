@@ -1,0 +1,2 @@
+Put your own logo here as logo.png (or logo.svg / logo.webp) and the share picture as og.jpg (1200x630).
+See ../README.txt. Without these files the built-in logo is used.

@@ -1,0 +1,96 @@
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource-variable/noto-sans-devanagari";
+
+/* ───────── Design tokens — edit here to re-theme the whole prototype ───────── */
+@theme {
+  --color-brand: #1746a2; /* primary blue */
+  --color-brand-600: #123a88;
+  --color-brand-deep: #0f2f73; /* deep blue */
+  --color-brand-300: #8fb0ea;
+  --color-pale: #eef3fb; /* pale blue */
+  --color-pale-2: #e1eaf8;
+  --color-ink: #1a2433;
+  --color-muted: #5b6675;
+  --color-line: #dde5f1;
+  --color-canvas: #ffffff;
+  --color-amber: #f5a623; /* conversion CTAs only */
+  --color-amber-600: #e0950f;
+  --color-amber-50: #fff6e3;
+  --color-success: #17794b;
+  --color-success-50: #e7f5ed;
+  --color-danger: #c0392b;
+  --color-danger-50: #fbebe9;
+  --color-warn: #8a5a00;
+  --color-warn-50: #fff3d9;
+
+  --font-sans: "Plus Jakarta Sans Variable", "Noto Sans Devanagari Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(15 47 115 / 0.05), 0 6px 20px -10px rgb(15 47 115 / 0.16);
+  --shadow-lift: 0 2px 4px rgb(15 47 115 / 0.06), 0 16px 36px -14px rgb(15 47 115 / 0.28);
+  --shadow-bar: 0 -6px 24px -12px rgb(15 47 115 / 0.3);
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+html[lang="ne"] body { line-height: 1.75; }
+html[lang="ne"] h1, html[lang="ne"] h2, html[lang="ne"] h3 { line-height: 1.35; letter-spacing: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.on-dark :focus-visible, [data-dark] :focus-visible { outline-color: #fff; }
+
+::selection { background: var(--color-pale-2); }
+
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+.snap-x-row { scroll-snap-type: x mandatory; }
+.snap-x-row > * { scroll-snap-align: start; }
+
+/* Safe-area padding for fixed bottom bars on phones */
+.pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+
+/* Subtle dotted texture used behind hero / banners */
+.bg-dots {
+  background-image: radial-gradient(rgb(23 70 162 / 0.12) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes pop { from { opacity: 0; transform: translateY(-6px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.page-in { animation: page-in .22s ease-out both; }
+@keyframes check-draw { to { stroke-dashoffset: 0; } }
+@keyframes ring-pop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgb(23 70 162 / .35); } 100% { box-shadow: 0 0 0 14px rgb(23 70 162 / 0); } }
+@keyframes float-y { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+/* Programmatically focused headings (route/step changes) should not show a ring. */
+.focus-quiet:focus, .focus-quiet:focus-visible { outline: none; }
